@@ -20,6 +20,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.add_dependency("roger", [">= 0.11.0"])
+  s.add_dependency("babel-transpiler", [">= 0.7.0"])
+  s.add_dependency("therubyracer", [">= 0.12.2"])
+
   s.add_development_dependency("roger")
   s.add_development_dependency("rubocop")
 end

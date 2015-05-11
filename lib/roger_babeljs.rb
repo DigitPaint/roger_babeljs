@@ -1,4 +1,8 @@
+# RogerBabelJS
 module RogerBabeljs; end
 
+# Dependencies
+require "babel/transpiler"
+
 # Load modules
-require File.dirname(__FILE__) + "/roger_babeljs/middleware"
+require_relative "roger_babeljs/middleware"
