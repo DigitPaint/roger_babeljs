@@ -11,6 +11,10 @@ Style/DotPosition:
   EnforcedStyle: trailing
   Enabled: true
 
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 20
+
 # By default, the rails cops are not run. Override in project or home
 # directory .rubocop.yml files, or by giving the -R/--rails option.
 AllCops:
