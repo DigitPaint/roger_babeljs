@@ -1,3 +1,4 @@
+
 module RogerBabeljs
   # Middleware
   #
@@ -25,7 +26,10 @@ module RogerBabeljs
           # This is a dirty little hack to always enforce UTF8
           body_str.force_encoding("UTF-8")
 
-          es5 = Babel::Transpiler.transform(body_str)
+          es5 = Babel::Transpiler.transform(body_str, {
+            "loose" => ["es6.modules"],
+            "modules" => "amd"
+            })
 
           ::Rack::Response.new(es5["code"], status, headers).finish
         else
