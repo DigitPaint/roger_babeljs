@@ -2,6 +2,10 @@
 
 Roger plugin to transpile ES6 code with BabelJS
 
+```
+ gem 'roger_babeljs'
+```
+
 ## Changes and versions
 
 Have a look at the [CHANGELOG](CHANGELOG.md) to see what's new.
