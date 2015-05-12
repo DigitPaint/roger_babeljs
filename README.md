@@ -4,6 +4,17 @@ Roger plugin to transpile ES6 code with BabelJS
 
 ```
  gem 'roger_babeljs'
+## Use it in the server
+
+```
+  mockup.serve do |server|
+    server.use RogerBabeljs::Middleware, {
+      match: [%r{/url/you/want/to/match/*\.js}],
+      babel_options: {
+        # ... Options to pass to Babel
+      }
+    }
+  end
 ```
 
 ## Changes and versions
