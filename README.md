@@ -3,7 +3,9 @@
 Roger plugin to transpile ES6 code with BabelJS
 
 ```
- gem 'roger_babeljs'
+ gem "roger_babeljs"
+```
+
 ## Use it in the server
 
 ```
