@@ -1,3 +1,5 @@
+require "singleton"
+
 module RogerBabeljs
   # Middleware
   #
@@ -59,7 +61,24 @@ module RogerBabeljs
       options["filename"] = File.basename(url)
       options["filenameRelative"] = url
 
-      es5 = Babel::Transpiler.transform(code, options)
+      Transformer.instance.transform(code, options)
+    end
+  end
+
+  # The transformer will take care of thread safe transformation of ES6 -> ES5 code
+  # using BabelJs. We need this to prevent deadlock in the V8 engine.
+  class Transformer
+    include Singleton
+
+    def initialize
+      @mutex = Mutex.new
+    end
+
+    def transform(code, options)
+      es5 = nil
+      @mutex.synchronize do
+        es5 = Babel::Transpiler.transform(code, options)
+      end
       es5["code"]
     end
   end
