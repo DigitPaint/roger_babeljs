@@ -20,6 +20,9 @@ module RogerBabeljs
     def call(env)
       # See if any URL matches PATH_INFO
       if url_matches?(env["PATH_INFO"])
+        # Assign it to local variable here; sometimes middleware changes the environment
+        # deeper down the callstack.
+        url = env["PATH_INFO"]
         status, headers, body = @app.call(env)
 
         if status == 200
@@ -30,7 +33,7 @@ module RogerBabeljs
           body.each { |f| body_str << f }
           body_str = body_str.join
 
-          build_es5_response(env["PATH_INFO"], body_str, status, headers)
+          build_es5_response(url, body_str, status, headers)
         else
           [status, headers, body]
         end
