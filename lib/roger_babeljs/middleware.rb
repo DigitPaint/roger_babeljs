@@ -11,6 +11,8 @@ module RogerBabeljs
 
     # @option options [Array] :match Array of regexp's to match URLS
     #   that should run through babel. Default: [/\A\/javascripts\/src\/.*\.js\Z/]
+    # @option options [Array] :skip Array of regexp's to skip URLS
+    #   that should NOT run through babel. Skip is stronger than match. Default: []
     # @option options [Hash] :babel_options Options to pass to babel.
     # @option options [false, :memory] :cache EXPERIMENTAL! Define if RogerBabel should use a cache.
     #   Default: false
@@ -19,6 +21,7 @@ module RogerBabeljs
 
       @options = {
         match: [%r{\A/javascripts/src/.*\.js\Z}],
+        skip: [],
         babel_options: {},
         cache: false
       }.update(options)
@@ -53,7 +56,8 @@ module RogerBabeljs
     protected
 
     def url_matches?(path)
-      @options[:match].find { |regex| regex.match(path) }
+      @options[:match].find { |regex| regex.match(path) } &&
+        @options[:skip].find { |regex| regex.match(path) }.nil?
     end
 
     # Try to get the response from cache or build and cache it if we don't get

@@ -25,6 +25,12 @@ class MiddlewareTest < ::Test::Unit::TestCase
     assert_equal response.status, 200
   end
 
+  def test_skip_should_not_match
+    stack = build_stack("es6.js", match: [/.*\.js\Z/], skip: [/fail\.js\Z/])
+    assert stack.get("/match.js").body.include?("var a")
+    assert stack.get("/fail.js").body.include?("let a")
+  end
+
   def test_custom_babel_options
     babel_options = {
       "loose" => ["es6.modules"],
