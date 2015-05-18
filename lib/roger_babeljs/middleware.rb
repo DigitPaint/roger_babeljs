@@ -27,7 +27,7 @@ module RogerBabeljs
       }.update(options)
 
       if @options[:cache] && @options[:cache] == :memory
-        @cache = Cache::Memory.new
+        @cache = Cache::Memory.instance
       else
         @cache = nil
       end
@@ -67,6 +67,7 @@ module RogerBabeljs
     def get_or_build_response(url, body, status, headers)
       if cache && headers["Last-Modified"]
         mtime = get_mtime(headers["Last-Modified"])
+
         if mtime
           code = cache.get(url, mtime)
           if code

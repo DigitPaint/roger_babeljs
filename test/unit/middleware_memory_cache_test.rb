@@ -6,6 +6,8 @@ require_relative "../../lib/roger_babeljs"
 class MiddlewareMemoryCacheTest < ::Test::Unit::TestCase
   def build_stack(file, options = {})
     stack = RogerBabeljs::Middleware.new(build_app(file), options)
+    # Clear the cache before re-running the test
+    stack.cache.cache.clear
     [Rack::MockRequest.new(stack), stack]
   end
 

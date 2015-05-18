@@ -1,7 +1,11 @@
+require "singleton"
+
 module RogerBabeljs
   module Cache
     # The RogerBabeljs::Cache::Memory is a simple memory cache
     class Memory
+      include Singleton
+
       attr_reader :cache
 
       def initialize
@@ -31,6 +35,10 @@ module RogerBabeljs
 
       def delete(key)
         @cache.delete(key)
+      end
+
+      def clear
+        @cache = {}
       end
     end
   end
